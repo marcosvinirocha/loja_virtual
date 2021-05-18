@@ -1,9 +1,8 @@
 
-
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class TestaListagem {
     public static void main(String[] args) throws Exception {
@@ -13,11 +12,11 @@ public class TestaListagem {
             ConnectionFactory criaConexao = new ConnectionFactory();
             Connection conexao = criaConexao.recuperarConnection();
 
-            Statement st = conexao.createStatement();
+            PreparedStatement stm = conexao.prepareStatement("SELECT ID, NOME, DESCRICAO FROM PRODUTO");
 
-            st.execute("SELECT ID, NOME, DESCRICAO FROM PRODUTO");
+            stm.execute();
 
-            ResultSet rst = st.getResultSet();
+            ResultSet rst = stm.getResultSet();
 
             while (rst.next()) {
                 Integer id = rst.getInt("ID");
